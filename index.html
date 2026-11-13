@@ -2,110 +2,283 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Presentasi Rekoleksi Misdinar & OMK</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Puzzle Tubuh Mistik</title>
   <style>
-    :root {
-      --navy: #0f172a;
-      --navy-card: #1e293b;
-      --gold: #eab308;
-      --gold-soft: rgba(234, 179, 8, 0.15);
-      --ivory: #f8fafc;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: 'Poppins', sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--navy);
-      color: var(--text-main);
-      overflow: hidden;
-      height: 100vh;
-      width: 100vw;
-      user-select: none;
-    }
-
-    /* Progress Bar */
-    .progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 5px;
-      background: linear-gradient(90deg, #ca8a04, #facc15);
-      transition: width 0.4s ease;
-      z-index: 100;
-    }
-
-    /* Slide Container */
-    .deck {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    .slide {
-      position: absolute;
-      inset: 0;
-      padding: 4rem 6rem;
+      background-color: #1a253c;
+      background-image: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(20px) scale(0.98);
-      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .slide.active {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0) scale(1);
-    }
-
-    /* Typography */
-    .kicker {
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1rem;
-      display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      color: #fff;
+      padding: 20px;
     }
 
-    .kicker::before {
-      content: "";
-      display: inline-block;
-      width: 32px;
-      height: 3px;
-      background-color: var(--gold);
-      border-radius: 2px;
+    .panel {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 25px 15px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 5vw, 4.8rem);
-      line-height: 1.15;
-      margin-bottom: 1.5rem;
-      color: #ffffff;
-    }
-
-    h2 {
-      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-size: 1.5rem;
       font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 2.5rem;
-      color: #ffffff;
+      color: #f6d365;
+      margin-bottom: 5px;
     }
 
-    .subtitle {
-      font-size: clamp(1.
+    p.subtitle {
+      font-size: 0.85rem;
+      color: #d1d8e0;
+      margin-bottom: 25px;
+    }
+
+    #puzzle-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 0 auto;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      border: 2px solid rgba(255,255,255,0.1);
+    }
+
+    .tile {
+      position: absolute;
+      width: 96px;
+      height: 96px;
+      background-image: url('https://images.unsplash.com/photo-1548625361-ec853818e69d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80');
+      background-size: 300px 300px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      transition: transform 0.2s ease-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.9);
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    .empty-indicator {
+      position: absolute;
+      width: 96px;
+      height: 96px;
+      border: 2px dashed rgba(255, 255, 255, 0.4);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: rgba(255, 255, 255, 0.3);
+      z-index: 0;
+    }
+
+    .btn-glow {
+      margin-top: 25px;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      width: 90%;
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #fff;
+      color: #2c3e50;
+      border-radius: 16px;
+      padding: 25px;
+      max-width: 320px;
+      text-align: center;
+    }
+
+    .modal h2 {
+      color: #e74c3c;
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .modal p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .btn-close {
+      background: #27ae60;
+      color: white;
+      border: none;
+      padding: 10px 0;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h1>🧩 Puzzle Altar</h1>
+    <p class="subtitle">Geser kepingan untuk menyusun gambar Altar Gereja!</p>
+
+    <div id="puzzle-container">
+      <div id="empty-indicator" class="empty-indicator">?</div>
+    </div>
+
+    <button class="btn-glow" onclick="showReflection()">Kenapa Gak Bisa Lengkap?</button>
+  </div>
+
+  <div class="modal" id="reflectionModal">
+    <div class="modal-content">
+      <h2>Kepingan yang Hilang Itu ADALAH KAMU!</h2>
+      <p>
+        Satu kepingan yang kosong membuat seluruh wajah Gereja tidak utuh.<br><br>
+        Ketika kamu pasif, malu, atau merasa tidak penting, <b>Tubuh Mistik Kristus kehilangan bagian terbaiknya.</b> Kehadiranmu di altar sangat berarti!
+      </p>
+      <button class="btn-close" onclick="closeReflection()">Saya Siap Terlibat!</button>
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById('puzzle-container');
+    const emptyIndicator = document.getElementById('empty-indicator');
+    
+    const gridSize = 3;
+    const tileSize = 100;
+    const gap = 2;
+
+    let emptyPos = { x: 1, y: 1 };
+    let tiles = [];
+
+    function initPuzzle() {
+      let id = 0;
+      for (let row = 0; row < gridSize; row++) {
+        for (let col = 0; col < gridSize; col++) {
+          if (row === 1 && col === 1) {
+            updateElementPosition(emptyIndicator, col, row);
+            continue;
+          }
+
+          const tile = document.createElement('div');
+          tile.classList.add('tile');
+          
+          const bgX = -(col * 100);
+          const bgY = -(row * 100);
+          tile.style.backgroundPosition = bgX + 'px ' + bgY + 'px';
+          
+          id++;
+          tile.innerText = id;
+
+          const tileObj = { element: tile, x: col, y: row };
+
+          // Optimasi untuk layar sentuh (HP/iPad)
+          tile.onclick = function() { moveTile(tileObj); };
+          tile.ontouchstart = function(e) { e.preventDefault(); moveTile(tileObj); };
+
+          tiles.push(tileObj);
+          container.appendChild(tile);
+          updateElementPosition(tile, col, row);
+        }
+      }
+      shufflePuzzle();
+    }
+
+    function updateElementPosition(element, x, y) {
+      const posX = x * tileSize + gap;
+      const posY = y * tileSize + gap;
+      element.style.transform = 'translate(' + posX + 'px, ' + posY + 'px)';
+    }
+
+    function moveTile(tile) {
+      const isAdjacent = (Math.abs(tile.x - emptyPos.x) === 1 && tile.y === emptyPos.y) || 
+                         (Math.abs(tile.y - emptyPos.y) === 1 && tile.x === emptyPos.x);
+
+      if (isAdjacent) {
+        const oldX = tile.x;
+        const oldY = tile.y;
+
+        tile.x = emptyPos.x;
+        tile.y = emptyPos.y;
+        updateElementPosition(tile.element, tile.x, tile.y);
+
+        emptyPos.x = oldX;
+        emptyPos.y = oldY;
+        updateElementPosition(emptyIndicator, emptyPos.x, emptyPos.y);
+      }
+    }
+
+    function shufflePuzzle() {
+      for (let i = 0; i < 60; i++) {
+        const movableTiles = tiles.filter(function(tile) {
+          return (Math.abs(tile.x - emptyPos.x) === 1 && tile.y === emptyPos.y) || 
+                 (Math.abs(tile.y - emptyPos.y) === 1 && tile.x === emptyPos.x);
+        });
+        const randomTile = movableTiles[Math.floor(Math.random() * movableTiles.length)];
+        
+        const oldX = randomTile.x;
+        const oldY = randomTile.y;
+        randomTile.x = emptyPos.x;
+        randomTile.y = emptyPos.y;
+        emptyPos.x = oldX;
+        emptyPos.y = oldY;
+      }
+      
+      tiles.forEach(function(tile) { updateElementPosition(tile.element, tile.x, tile.y); });
+      updateElementPosition(emptyIndicator, emptyPos.x, emptyPos.y);
+    }
+
+    function showReflection() {
+      document.getElementById('reflectionModal').classList.add('active');
+    }
+
+    function closeReflection() {
+      document.getElementById('reflectionModal').classList.remove('active');
+    }
+
+    window.onload = initPuzzle;
+  </script>
+</body>
+</html>
